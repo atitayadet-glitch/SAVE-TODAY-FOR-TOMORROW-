@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Saving Planner - Cute Version</title>
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+    <div class="game-box">
+        <div class="level-badge">
+            <span id="level-icon">🌱</span>
+            <div class="level-text">
+                <strong id="badge">นักออมมือใหม่</strong><br>
+                <small>Level <span id="level">1</span></small>
+            </div>
+        </div>
+
+        <div class="progress-container">
+            <div class="progress-bar">
+                <div class="progress" id="progress"></div>
+            </div>
+            <div class="points-tag">✨ <span id="points">0</span> XP</div>
+        </div>
+        <p class="user-stats">👤 เพื่อนร่วมออม: <span id="userCount">0</span> คน</p>
+    </div>
+
+    <h1>✨ วางแผนออมเงิน</h1>
+
+    <div class="input-section">
+        <label>รายได้ต่อเดือน</label>
+        <input type="text" inputmode="numeric" id="income" placeholder="0">
+
+        <label>ค่าใช้จ่ายต่อเดือน</label>
+        <input type="text" inputmode="numeric" id="expense" placeholder="0">
+
+        <div class="goal-group">
+            <div style="flex: 2;">
+                <label>เป้าหมายการออม</label>
+                <input type="text" inputmode="numeric" id="goal" placeholder="0">
+            </div>
+            <div style="flex: 1;">
+                <label>ระยะเวลา</label>
+                <select id="goalType">
+                    <option value="monthly">ต่อเดือน</option>
+                    <option value="yearly">ต่อปี</option>
+                </select>
+            </div>
+        </div>
+
+        <label>สไตล์การลงทุนที่ชอบ</label>
+        <select id="risk">
+            <option value="low">🛡️ ปลอดภัยไว้ก่อน (ต่ำ)</option>
+            <option value="medium">⚖️ สมดุลพอดี (กลาง)</option>
+            <option value="high">🚀 เน้นเติบโต (สูง)</option>
+        </select>
+
+        <button onclick="calculate()" class="main-btn">เริ่มวางแผนเลย!</button>
+    </div>
+
+    <div class="result" id="result" style="display:none">
+        <div class="summary-card">
+            <p id="saving-text"></p>
+            <p id="months-text"></p>
+        </div>
+
+        <div class="invest-section">
+            <h3 id="investPlan"></h3>
+            <div class="invest-detail" id="investDetail"></div>
+        </div>
+    </div>
+
+    <a href="admin.html" class="admin-link">🔐 สำหรับผู้ดูแลระบบ</a>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

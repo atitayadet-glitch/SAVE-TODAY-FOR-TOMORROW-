@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Dashboard</title>
+
+<!-- 🔒 ป้องกันเข้า Admin โดยไม่ Login -->
+<script>
+if (localStorage.getItem("adminLogin") !== "true") {
+location.href = "login.html";
+}
+</script>
+
+<style>
+body{
+font-family: Arial, sans-serif;
+background:#f5f6fa;
+margin:0;
+padding:20px;
+}
+h1,h2{text-align:center}
+.container{
+max-width:1000px;
+margin:auto;
+}
+
+/* ===== ปุ่ม ===== */
+button{
+padding:8px 15px;
+border:none;
+border-radius:5px;
+cursor:pointer;
+margin:5px;
+}
+.logout{background:#ff4757;color:#fff}
+.clear{background:#ffa502;color:#fff}
+
+/* ===== การ์ดสรุป ===== */
+.cards{
+display:flex;
+gap:20px;
+flex-wrap:wrap;
+justify-content:center;
+margin:20px 0;
+}
+.card{
+background:#6c63ff;
+color:#fff;
+padding:20px;
+border-radius:12px;
+min-width:200px;
+text-align:center;
+font-size:18px;
+box-shadow:0 10px 20px rgba(0,0,0,.15);
+}
+
+/* ===== ตาราง ===== */
+table{
+width:100%;
+border-collapse:collapse;
+background:#fff;
+margin-top:20px;
+}
+th,td{
+border:1px solid #ddd;
+padding:10px;
+text-align:center;
+}
+th{
+background:#6c63ff;
+color:#fff;
+}
+
+/* ===== กราฟ ===== */
+canvas{
+background:#fff;
+padding:15px;
+border-radius:10px;
+margin-top:20px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+<h1>📊 Admin Dashboard</h1>
+
+<div style="text-align:center">
+<button class="logout" onclick="logout()">Logout</button>
+<button class="clear" onclick="clearData()">ล้างข้อมูล</button>
+</div>
+
+<!-- ===== การ์ดสรุป ===== -->
+<div class="cards">
+<div class="card">
+👥 ผู้ตอบแบบสอบถามทั้งหมด<br>
+<strong id="userCount">0</strong> คน
+</div>
+</div>
+
+<!-- ===== Dashboard กราฟ ===== -->
+<h2>📈 สรุปข้อมูลผู้ใช้งาน</h2>
+<canvas id="barChart"></canvas>
+<canvas id="pieChart"></canvas>
+
+<!-- ===== ตารางข้อมูล ===== -->
+<h2>📋 รายละเอียดผู้ใช้งาน</h2>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>รายได้</th>
+<th>ค่าใช้จ่าย</th>
+<th>เป้าหมาย</th>
+<th>ระดับความเสี่ยง</th>
+</tr>
+</thead>
+<tbody id="data"></tbody>
+</table>
+</div>
+
+<!-- ===== Chart.js ===== -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+// ================== ดึงข้อมูล ==================
+const users = JSON.parse(localStorage.getItem("users")) || [];
+const tbody = document.getElementById("data");
+const riskTH = { low:"ต่ำ", medium:"ปานกลาง", high:"สูง" };
+
+// ================== นับจำนวนผู้ตอบ ==================
+document.getElementById("userCount").innerText = users.length;
+
+// ================== แสดงตาราง ==================
+users.forEach((u,i)=>{
+tbody.innerHTML += `
+<tr>
+<td>${i+1}</td>
+<td>${u.income.toLocaleString()}</td>
+<td>${u.expense.toLocaleString()}</td>
+<td>${u.goal.toLocaleString()}</td>
+<td>${riskTH[u.risk]}</td>
+</tr>`;
+});
+
+// ================== คำนวณข้อมูลสำหรับกราฟ ==================
+let totalIncome = 0;
+let totalExpense = 0;
+let riskCount = { low:0, medium:0, high:0 };
+
+users.forEach(u=>{
+totalIncome += u.income;
+totalExpense += u.expense;
+riskCount[u.risk]++;
+});
+
+const avgIncome = users.length ? totalIncome / users.length : 0;
+const avgExpense = users.length ? totalExpense / users.length : 0;
+
+// ================== กราฟแท่ง ==================
+new Chart(document.getElementById("barChart"),{
+type:"bar",
+data:{
+labels:["รายได้เฉลี่ย","ค่าใช้จ่ายเฉลี่ย"],
+datasets:[{
+data:[avgIncome, avgExpense],
+backgroundColor:["#6c63ff","#ff7675"]
+}]
+},
+options:{
+plugins:{ legend:{display:false} }
+}
+});
+
+// ================== กราฟวงกลม ==================
+new Chart(document.getElementById("pieChart"),{
+type:"pie",
+data:{
+labels:["ความเสี่ยงต่ำ","ปานกลาง","สูง"],
+datasets:[{
+data:[
+riskCount.low,
+riskCount.medium,
+riskCount.high
+],
+backgroundColor:["#2ed573","#ffa502","#ff4757"]
+}]
+}
+});
+
+// ================== ฟังก์ชันระบบ ==================
+function logout(){
+localStorage.removeItem("adminLogin");
+location.href = "login.html";
+}
+
+function clearData(){
+if(confirm("ยืนยันล้างข้อมูลทั้งหมด?")){
+localStorage.clear();
+location.reload();
+}
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,117 @@
+:root {
+  --primary: #6c63ff;
+  --secondary: #ff85a1;
+  --bg-gradient: linear-gradient(135deg, #fceaff, #dae5ff);
+  --card-bg: #ffffff;
+}
+
+body {
+  font-family: 'Prompt', sans-serif;
+  background: var(--bg-gradient);
+  min-height: 100vh;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.container {
+  background: var(--card-bg);
+  width: 100%;
+  max-width: 450px;
+  padding: 30px;
+  border-radius: 30px;
+  box-shadow: 0 20px 40px rgba(108, 99, 255, 0.15);
+}
+
+/* Gamification UI */
+.game-box {
+  background: #f8f9ff;
+  padding: 20px;
+  border-radius: 20px;
+  margin-bottom: 25px;
+  border: 2px solid #edf0ff;
+}
+
+.level-badge {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 15px;
+}
+
+#level-icon {
+  font-size: 40px;
+  background: white;
+  padding: 10px;
+  border-radius: 15px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+}
+
+.progress-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.progress-bar {
+  flex-grow: 1;
+  background: #e0e6ff;
+  height: 12px;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.progress {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, var(--primary), var(--secondary));
+  transition: 1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* Inputs & Buttons */
+h1 { color: #4b4b8f; text-align: center; margin-top: 0; }
+.goal-group { display: flex; gap: 10px; }
+label { font-size: 14px; font-weight: 600; color: #6a6a9d; }
+
+input, select {
+  width: 100%;
+  padding: 14px;
+  margin: 8px 0 18px;
+  border-radius: 15px;
+  border: 2px solid #f0f0f0;
+  background: #fdfdfd;
+  transition: 0.3s;
+}
+
+input:focus { border-color: var(--primary); outline: none; }
+
+.main-btn {
+  background: var(--primary);
+  color: white;
+  border: none;
+  padding: 16px;
+  border-radius: 15px;
+  font-size: 18px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 8px 20px rgba(108, 99, 255, 0.3);
+}
+
+/* Result Area */
+.summary-card {
+  background: #6c63ff10;
+  padding: 15px;
+  border-radius: 15px;
+  margin-top: 20px;
+  border: 1px dashed var(--primary);
+}
+
+.invest-section {
+  margin-top: 15px;
+  background: white;
+  padding: 15px;
+  border-radius: 15px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.03);
+}
