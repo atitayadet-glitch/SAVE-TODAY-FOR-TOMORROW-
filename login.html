@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Login</title>
+
+<style>
+body{
+font-family: Arial, sans-serif;
+background: linear-gradient(135deg,#6c63ff,#48c6ef);
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+}
+.login-box{
+background:#fff;
+padding:30px;
+border-radius:12px;
+width:100%;
+max-width:320px;
+text-align:center;
+box-shadow:0 10px 30px rgba(0,0,0,.2);
+}
+input,button{
+width:100%;
+padding:10px;
+margin-top:10px;
+font-size:16px;
+}
+button{
+background:#6c63ff;
+color:#fff;
+border:none;
+border-radius:6px;
+cursor:pointer;
+}
+button:hover{opacity:.9}
+</style>
+</head>
+
+<body>
+
+<div class="login-box">
+<h1>🔐 Admin Login</h1>
+
+<input id="username" placeholder="Username">
+<input id="password" type="password" placeholder="Password">
+
+<button onclick="login()">เข้าสู่ระบบ</button>
+<p id="error" style="color:red"></p>
+</div>
+
+<script>
+function login(){
+const u = document.getElementById("username").value;
+const p = document.getElementById("password").value;
+
+// กำหนดรหัส Admin
+if(u === "admin" && p === "1234"){
+localStorage.setItem("adminLogin","true");
+location.href = "admin.html";
+}else{
+document.getElementById("error").innerText =
+"ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง";
+}
+}
+</script>
+
+</body>
+</html>

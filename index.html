@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ระบบวางแผนการออมเงิน</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<h1>💰 ระบบวางแผนการออมเงิน</h1>
+
+<div class="box">
+<label>รายได้ต่อเดือน (บาท)</label>
+<input type="number" id="income" placeholder="เช่น 25,000">
+
+<label>เป้าหมายการออม (บาท)</label>
+<input type="number" id="goal" placeholder="เช่น 300,000">
+
+<button onclick="calculate()">คำนวณแผนการออม</button>
+
+<p id="result"></p>
+<p>🎮 คะแนนสะสม: <b id="point">0</b></p>
+
+<a href="login.html" class="admin-link">🔐 สำหรับเจ้าของระบบ</a>
+</div>
+
+<!-- Firebase -->
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+
+<script src="script.js"></script>
+</body>
+</html>
