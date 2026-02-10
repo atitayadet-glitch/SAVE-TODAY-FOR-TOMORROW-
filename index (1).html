@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Evergreen Wealth - ระบบออมเงินต้นไม้โต</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+</head>
+<body>
+
+<div class="app-container">
+    <header class="garden-header glass">
+        <div class="tree-display">
+            <div id="tree-stage" class="tree-emoji-main">🌱</div>
+            <div class="garden-info">
+                <h3 id="tree-name">ต้นกล้าผู้เริ่มต้น</h3>
+                <div class="growth-bar"><div id="growth-fill" class="growth-fill"></div></div>
+                <small>ความเติบโต: Lv. <span id="growth-lvl">1</span></small>
+            </div>
+        </div>
+        <button class="btn-admin-gate" onclick="showLogin()">⚙️ Admin</button>
+    </header>
+
+    <section id="tree-selector" class="glass selector-card">
+        <p class="section-title">เลือกพันธุ์ไม้ที่จะเติบโตไปพร้อมคุณ</p>
+        <div class="choice-grid">
+            <button onclick="selectTree('🌵', 'ตะบองเพชร')"><span>🌵</span><small>ตะบองเพชร</small></button>
+            <button onclick="selectTree('🌲', 'สนพันปี')"><span>🌲</span><small>สนพันปี</small></button>
+            <button onclick="selectTree('🌳', 'โอ๊คใหญ่')"><span>🌳</span><small>โอ๊คใหญ่</small></button>
+        </div>
+    </section>
+
+    <main class="calc-card glass">
+        <div class="input-grid">
+            <div class="input-item">
+                <label>เป้าหมายการออม (บาท)</label>
+                <input type="text" id="goal-in" placeholder="0" oninput="handleMoneyInput(this)">
+            </div>
+            <div class="input-item">
+                <label>ระยะเวลา (เดือน)</label>
+                <input type="text" id="month-in" placeholder="0" oninput="handleMoneyInput(this)">
+            </div>
+        </div>
+
+        <div id="investment-advice" class="advice-box hidden">
+            <div class="advice-header">🚀 คำแนะนำการลงทุน</div>
+            <p id="advice-text"></p>
+        </div>
+
+        <div class="result-box">
+            <span>ยอดออมต่อเดือน</span>
+            <h1 id="monthly-res">0</h1>
+            <small>บาท</small>
+        </div>
+
+        <button class="btn-grow" onclick="saveAndGrow()">💧 รดน้ำและบันทึกข้อมูล</button>
+    </main>
+
+    <section class="graph-card glass">
+        <h4>📊 กราฟคาดการณ์ความเติบโต</h4>
+        <canvas id="savingsChart"></canvas>
+    </section>
+
+    <div id="login-modal" class="overlay hidden">
+        <div class="modal glass">
+            <h3>Admin Access</h3>
+            <input type="password" id="admin-pass" placeholder="รหัสผ่าน (1234)">
+            <button onclick="checkAuth()" class="btn-grow">เข้าสู่ระบบ</button>
+            <button onclick="hideModals()" class="btn-text">ยกเลิก</button>
+        </div>
+    </div>
+
+    <div id="admin-panel" class="overlay hidden">
+        <div class="modal glass admin-box">
+            <h3>📜 ฐานข้อมูลผู้ใช้</h3>
+
+            <div class="summary-card">
+                <p id="total-stats">กำลังประมวลผล...</p>
+                <div class="admin-actions">
+                    <button onclick="copySummary()" class="btn-action btn-blue">📋 คัดลอกสรุป</button>
+                    <button onclick="exportToCSV()" class="btn-action btn-green">📊 โหลด Excel</button>
+                </div>
+            </div>
+
+            <div id="admin-list" class="history-list"></div>
+            <button onclick="hideModals()" class="btn-grow">กลับไปที่สวน</button>
+        </div>
+    </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
